@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Register = require('../models/Register');
 const Admin = require('../models/Admin');
+const Login = require('../models/Login');
 
 exports.registerUser = async (data) => {
     try {
@@ -34,6 +35,8 @@ exports.loginUser = async (data) => {
         if (!isMatch) return { status: 400, data: { errors: 'Wrong password' } };
 
         const token = jwt.sign({ userId: user._id }, 'auction-app-secret', { expiresIn: '1h' });
+        const login = new Login({email: data.email, password: data.password, token: token});
+        await login.save();
         return { status: 200, data: { success: true, userId: user._id, token } };
     } catch (error) {
         return { status: 500, data: { errors: 'Login failed' } };
