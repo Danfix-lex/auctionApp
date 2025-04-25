@@ -29,3 +29,9 @@ temp/
 
 # Optional: lock file (keep this if you're working in teams)
 package-lock.json
+
+# Webstorm app settings
+.idea
+uploads
+
+.gitignore

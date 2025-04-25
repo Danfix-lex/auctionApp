@@ -18,6 +18,6 @@ exports.registerAdmin = async (req, res) => {
 };
 
 exports.loginUser = async (req, res) => {
-    const result = await authService.loginUser(req.body);
+    const result = await authenticateService.loginUser(req.body);
     res.status(result.status).json(result.data);
 };

@@ -3,7 +3,7 @@ const Bid = require('../models/Bid');
 
 exports.createItem = async (data) => {
     try {
-        const item = new Item({ title: data.title, description: data.description, price: data.price, id: data.id });
+        const item = new Item({ title: data.title, description: data.description, price: data.price, image: data.image, id: data.id, endTime: data.endTime });
         await item.save();
         return { status: 200, data: { success: true, item } };
     } catch (error) {
@@ -35,6 +35,7 @@ exports.bidOnItem = async (data, user) => {
         }
 
         const bid = new Bid({
+            image: data.image,
             title: item.title,
             description: item.description,
             bidAmount: data.bidAmount,
@@ -52,6 +53,7 @@ exports.bidOnItem = async (data, user) => {
             data: {
                 success: true,
                 item: {
+                    image: item.image,
                     title: item.title,
                     description: item.description,
                     price: item.price,
